@@ -22,7 +22,7 @@ SELECT
     dc.customer_name,
     dc.city 
 FROM fact_order_line AS fol
-JOIN dim_customers AS dc 
+LEFT JOIN dim_customers AS dc 
     ON fol.customer_id = dc.customer_id; 
 
 SELECT * 
