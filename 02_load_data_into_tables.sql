@@ -29,7 +29,16 @@ FROM read_csv('A:\Alfy\Desktop\Dataset\Postgres Input files\dim_targets_orders.c
 SELECT '===loading Fact Aggregate Table===' AS info;
 
 INSERT INTO fact_aggregate(order_id, customer_id, order_placement_date, on_time, in_full, otif)
-SELECT order_id, customer_id, order_placement_date, on_time, in_full, otif 
+SELECT 
+    order_id, 
+    customer_id, 
+    COALESCE(
+        TRY_STRPTIME(order_placement_date, '%m/%d/%Y'), 
+        TRY_STRPTIME(order_placement_date, '%d-%m-%Y')
+    ) AS order_placement_date,
+    on_time, 
+    in_full, 
+    otif 
 FROM read_csv('A:\Alfy\Desktop\Dataset\Postgres Input files\fact_aggregate.csv',
     AUTO_DETECT = true,
     HEADER = true);
@@ -39,9 +48,28 @@ SELECT '===loading Fact Order Line Table===' AS info;
 INSERT INTO fact_order_line (order_id, order_placement_date, customer_id, product_id,
         order_qty, agreed_delivery_date, actual_delivery_date, delivery_qty, in_full, 
         on_time, otif)
-SELECT order_id, order_placement_date, customer_id, product_id,order_qty, 
-        agreed_delivery_date, actual_delivery_date, delivery_qty, in_full, 
-        on_time, otif
+SELECT 
+    order_id, 
+    -- Cleanly handle multiple date formats
+    COALESCE(
+        TRY_STRPTIME(order_placement_date, '%m/%d/%Y'), 
+        TRY_STRPTIME(order_placement_date, '%d-%m-%Y')
+    ) AS order_placement_date, 
+    customer_id, 
+    product_id,
+    order_qty,
+    COALESCE(
+        TRY_STRPTIME(agreed_delivery_date, '%m/%d/%Y'), 
+        TRY_STRPTIME(agreed_delivery_date, '%d-%m-%Y')
+    ) AS agreed_delivery_date, 
+    COALESCE(
+        TRY_STRPTIME(actual_delivery_date, '%m/%d/%Y'), 
+        TRY_STRPTIME(actual_delivery_date, '%d-%m-%Y')
+    ) AS actual_delivery_date,
+    delivery_qty, 
+    in_full, 
+    on_time, 
+    otif
 FROM read_csv('A:/Alfy/Desktop/Dataset/Postgres Input files/fact_order_line.csv',
     HEADER = true,
     sample_size = -1);
@@ -86,3 +114,4 @@ SELECT '===Fact Order Line Sample===' AS info;
 SELECT * 
 FROM fact_order_line
 LIMIT 10;
+

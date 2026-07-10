@@ -39,7 +39,7 @@ CREATE TABLE dim_target_orders (
 CREATE TABLE fact_aggregate (
     order_id                VARCHAR,
     customer_id             INTEGER,
-    order_placement_date    VARCHAR,
+    order_placement_date    DATE,
     on_time                 INTEGER,
     in_full                 INTEGER,
     otif                    INTEGER,
@@ -50,12 +50,12 @@ CREATE TABLE fact_aggregate (
 -- Fact Order Line Table
 CREATE TABLE fact_order_line (
     order_id                VARCHAR,
-    order_placement_date    VARCHAR,
+    order_placement_date    DATE,
     customer_id             INTEGER,
     product_id              INTEGER,
     order_qty               INTEGER,
-    agreed_delivery_date    VARCHAR,
-    actual_delivery_date    VARCHAR,
+    agreed_delivery_date    DATE,
+    actual_delivery_date    DATE,
     delivery_qty            INTEGER,
     in_full                 INTEGER,
     on_time                 INTEGER,
