@@ -25,5 +25,3 @@ FROM fact_order_line AS fol
 LEFT JOIN dim_customers AS dc 
     ON fol.customer_id = dc.customer_id; 
 
-SELECT * 
-FROM flat_mart.city_delivery;
