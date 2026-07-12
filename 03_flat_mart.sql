@@ -1,4 +1,4 @@
--- Step 3: Creating city delivery
+-- Step 3: Creating flat mart
 
 
 DROP SCHEMA IF EXISTS flat_mart CASCADE;
