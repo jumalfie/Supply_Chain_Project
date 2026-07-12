@@ -1,4 +1,4 @@
-duckdb supply_chain_dw -c ".read build_dw_marts.sql"
+-- duckdb supply_chain_dw -c ".read build_dw_marts.sql"
 
 -- Step 1: DW - Create star schema tables
 .read 01_create_tables_dw.sql 
@@ -7,7 +7,7 @@ duckdb supply_chain_dw -c ".read build_dw_marts.sql"
 .read 02_load_data_into_tables.sql
 
 -- Step 3: Creating city delivery
-.read 03_customer_flat_mart.sql
+.read 03_flat_mart.sql
 
 -- Step 4: Creating a product supply date mart
-.read 04_create_date_mart.sql
+.read 04_create_supply_mart.sql
