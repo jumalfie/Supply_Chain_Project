@@ -1,4 +1,4 @@
-# Supply Chain Data Warehouse & Analytics with DuckDB
+## Supply Chain Data Warehouse & Analytics with DuckDB
 
 ## Overview
 
@@ -8,7 +8,7 @@ The project applies dimensional modeling techniques, ETL processes, and data mar
 
 ---
 
-# Objectives
+## Objectives
 
 * Build a dimensional data warehouse using a star schema.
 * Transform operational data into analytical datasets.
@@ -267,7 +267,7 @@ project/
 * Implement historical target tracking.
 * Automate the ETL pipeline.
 
----
+
 
 # Conclusion
 
