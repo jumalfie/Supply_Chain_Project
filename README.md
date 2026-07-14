@@ -30,7 +30,7 @@ The project applies dimensional modeling techniques, ETL processes, and data mar
 
 # Project Architecture
 
-![](/Sources/Structure)
+![](/Sources/Arch.png)
 
 ---
 
