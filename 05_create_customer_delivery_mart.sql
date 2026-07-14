@@ -87,23 +87,50 @@ ORDER BY
 
 SELECT '=== Loading Customer Delivery Perfomance ===' AS info;
 
-CREATE OR REPLACE VIEW customer_delivery_mart.customer_delivery_performance AS
+
+CREATE OR REPLACE TABLE customer_delivery_mart.customer_delivery_performance AS
 SELECT
     dd.year,
     dd.month_name,
     dc.customer_name,
     dc.city,
+
+    -- On-time delivery
     dc.ontime_target_percent,
     f.actual_on_time_percent,
+    ROUND((f.actual_on_time_percent - dc.ontime_target_percent),2) AS ontime_variance,
+    CASE 
+        WHEN f.actual_on_time_percent >= dc.ontime_target_percent THEN 'Met Target'
+        ELSE 'Below Target'
+    END AS ontime_status,
+
+    -- In-full delivery
     dc.infull_target_percent,
     f.actual_in_full_percent,
+    ROUND((f.actual_in_full_percent - dc.infull_target_percent),2) AS infull_variance,
+    CASE 
+        WHEN f.actual_in_full_percent >= dc.infull_target_percent THEN 'Met Target'
+        ELSE 'Below Target'
+    END AS infull_status,
+
+    -- OTIF delivery
     dc.otif_target_percent,
-    f.actual_otif_percent
+    f.actual_otif_percent,
+    ROUND((f.actual_otif_percent - dc.otif_target_percent),2) AS otif_variance,
+    CASE 
+        WHEN f.actual_otif_percent >= dc.otif_target_percent THEN 'Met Target'
+        ELSE 'Below Target'
+    END AS otif_status
+
 FROM customer_delivery_mart.fact_customer_monthly_delivery f
 JOIN customer_delivery_mart.dim_customers dc
     ON f.customer_id = dc.customer_id
 JOIN customer_delivery_mart.dim_date dd
     ON f.exact_delivery_month = dd.exact_delivery_month;
+
+
+
+
 
 
 SELECT '=== Dim customers Sample ===' AS info;
