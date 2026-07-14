@@ -30,19 +30,7 @@ The project applies dimensional modeling techniques, ETL processes, and data mar
 
 # Project Architecture
 
-```text
-                Raw CSV Files
-                      │
-                      ▼
-              Star Schema (Data Warehouse)
-                      │
-                      ▼
-                 Flat Reporting Mart
-          ┌───────────┼────────────┐
-          ▼           ▼            ▼
-   Supply Mart   Customer Delivery   Product Performance
-                     Mart                  Mart
-```
+![](/Sources/Structure)
 
 ---
 
@@ -100,7 +88,7 @@ Stores product-level transaction details including:
 
 The project is organized into six SQL scripts.
 
-## Step 1 — Create Data Warehouse
+## Step 1 — [Create Data Warehouse](/01_create_tables_dw.sql)
 
 Creates the star schema including:
 
@@ -111,13 +99,13 @@ Creates the star schema including:
 
 ---
 
-## Step 2 — Load Warehouse
+## Step 2 — [Load Warehouse](/02_load_data_into_tables.sql)
 
 Loads CSV data into the warehouse tables.
 
 ---
 
-## Step 3 — Build Flat Mart
+## Step 3 — [Build Flat Mart](/03_create_order_flat_mart.sql)
 
 Creates a denormalized reporting table by joining:
 
@@ -129,7 +117,7 @@ The flat mart simplifies analytical queries and serves as the source for downstr
 
 ---
 
-## Step 4 — Product Supply Mart
+## Step 4 — [Product Supply Mart](/04_create_product_supply_mart.sql)
 
 Provides monthly supply chain performance by product.
 
@@ -146,7 +134,7 @@ Provides monthly supply chain performance by product.
 
 ---
 
-## Step 5 — Customer Delivery Mart
+## Step 5 — [Customer Delivery Mart](/05_create_customer_delivery_mart.sql)
 
 Measures customer delivery performance against agreed service targets.
 
@@ -164,7 +152,7 @@ Measures customer delivery performance against agreed service targets.
 
 ---
 
-## Step 6 — Product Performance Mart
+## Step 6 — [Product Performance Mart](/06_create_product_performance_mart.sql)
 
 Analyzes monthly product performance.
 
@@ -230,30 +218,8 @@ This warehouse can answer questions such as:
 
 # Project Structure
 
-```text
-project/
-│
-├── data/
-│   ├── dim_customers.csv
-│   ├── dim_products.csv
-│   ├── dim_target_orders.csv
-│   ├── fact_aggregate.csv
-│   └── fact_order_line.csv
-│
-├── sql/
-│   ├── 01_create_tables_dw.sql
-│   ├── 02_load_dw.sql
-│   ├── 03_flat_mart.sql
-│   ├── 04_create_supply_mart.sql
-│   ├── 05_customer_delivery_mart.sql
-│   └── 06_product_performance_mart.sql
-│
-├── diagrams/
-│
-├── README.md
-│
-└── LICENSE
-```
+![](/Sources/Folder%20structure.png)
+
 
 ---
 
